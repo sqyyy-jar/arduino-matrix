@@ -14,8 +14,8 @@ void setup() {
   lc.setIntensity(0, 8);
   lc.clearDisplay(0);
   // Punkt einstellen
-  dot.position = { .x = 0, .y = 0 };
-  dot.velocity = { .x = 1, .y = 2 };
+  dot.position = {.x = 0, .y = 0};
+  dot.velocity = {.x = 1, .y = 2};
 }
 
 void loop() {
