@@ -4,8 +4,6 @@
 LedControl lc(12, 11, 10, 1);
 Dot dot;
 
-void move_dot();
-
 void draw_dot();
 
 void setup() {
@@ -19,27 +17,14 @@ void setup() {
 }
 
 void loop() {
-  move_dot();
+  dot_move(&dot);
   lc.clearDisplay(0);
   draw_dot();
   delay(50);
 }
 
-void move_dot() {
-  Vec2 dest;
-  vec_add(&dot.position, &dot.velocity, &dest);
-  if (dest.x < 0 || dest.x >= MAT_VWIDTH) {
-    dot.velocity.x = -dot.velocity.x;
-  }
-  if (dest.y < 0 || dest.y >= MAT_VWIDTH) {
-    dot.velocity.y = -dot.velocity.y;
-  }
-  dot.position = dest;
-}
-
 void draw_dot() {
-  Vec2 screenPos;
-  vec_convert(&dot.position, &screenPos);
+  Vec2 screenPos = vec_convert(&dot.position);
   lc.setLed(0, screenPos.x, screenPos.y, true);
 }
 

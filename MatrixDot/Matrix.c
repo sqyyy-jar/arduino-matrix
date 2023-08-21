@@ -1,25 +1,34 @@
 #include "Matrix.h"
 
-void vec_convert(Vec2 *src, Vec2 *dst) {
-  dst->x = src->x >> MAT_PREC_BITS;
-  dst->y = src->y >> MAT_PREC_BITS;
+Vec2 vec_convert(Vec2 *src) {
+  return {.x = src->x >> MAT_PREC_BITS, .y = src->y >> MAT_PREC_BITS};
 }
 
-void vec_add(Vec2 *left, Vec2 *right, Vec2 *dst) {
-  dst->x = left->x + right->x;
-  dst->y = left->y + right->y;
+Vec2 vec_add(Vec2 *left, Vec2 *right) {
+  return {.x = left->x + right->x, .y = left->y + right->y};
 }
 
-void vec_mul(Vec2 *src, int amount, Vec2 *dst) {
-  dst->x = src->x * amount;
-  dst->y = src->y * amount;
+Vec2 vec_mul(Vec2 *src, int amount) {
+  return {.x = left->x * amount, .y = left->y * amount};
 }
 
-int vec_mag_sq(Vec2 *src) {
-  return src->x * src->x + src->y * src->y;
+void dot_move(Dot *dot) {
+  Vec2 dest = vec_add(&dot->position, &dot->velocity);
+  if (dest.x < 0) {
+    dest.x = -dest.x;
+    dot.velocity.x = -dot.velocity.x;
+  }
+  if (dest.x >= MAT_VWIDTH) {
+    dest.x = MAT_VWIDTH - (dest.x - MAT_VWIDTH);
+    dot.velocity.x = -dot.velocity.x;
+  }
+  if (dest.y < 0) {
+    dest.y = -dest.y;
+    dot.velocity.y = -dot.velocity.y;
+  }
+  if (dest.y >= MAT_VWIDTH) {
+    dest.y = MAT_VWIDTH - (dest.y - MAT_VWIDTH);
+    dot.velocity.y = -dot.velocity.y;
+  }
+  dot.position = dest;
 }
-
-int vec_mag(Vec2 *src) {
-  return sqrt(vec_mag_sq(src));
-}
-
