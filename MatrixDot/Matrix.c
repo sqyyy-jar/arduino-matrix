@@ -14,21 +14,27 @@ Vec2 vec_mul(Vec2 *src, int amount) {
 
 void dot_move(Dot *dot) {
   Vec2 dest = vec_add(&dot->position, &dot->velocity);
-  if (dest.x < 0) {
-    dest.x = -dest.x;
-    dot->velocity.x = -dot->velocity.x;
-  }
-  if (dest.x >= MAT_VWIDTH) {
-    dest.x = MAT_VWIDTH - (dest.x - MAT_VWIDTH);
-    dot->velocity.x = -dot->velocity.x;
-  }
-  if (dest.y < 0) {
-    dest.y = -dest.y;
-    dot->velocity.y = -dot->velocity.y;
-  }
-  if (dest.y >= MAT_VWIDTH) {
-    dest.y = MAT_VWIDTH - (dest.y - MAT_VWIDTH);
-    dot->velocity.y = -dot->velocity.y;
+  for (int i = 0; i < 2; i++) {
+    dot_bounce(dot, &dest);
   }
   dot->position = dest;
+}
+
+void dot_bounce(Dot *dot, Vec2 *dest) {
+  if (dest->x < 0) {
+    dest->x = -dest->x;
+    dot->velocity.x = -dot->velocity.x;
+  }
+  if (dest->x >= MAT_VWIDTH) {
+    dest->x = MAT_VWIDTH - (dest->x - MAT_VWIDTH);
+    dot->velocity.x = -dot->velocity.x;
+  }
+  if (dest->y < 0) {
+    dest->y = -dest->y;
+    dot->velocity.y = -dot->velocity.y;
+  }
+  if (dest->y >= MAT_VWIDTH) {
+    dest->y = MAT_VWIDTH - (dest->y - MAT_VWIDTH);
+    dot->velocity.y = -dot->velocity.y;
+  }
 }

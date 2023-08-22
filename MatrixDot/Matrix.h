@@ -1,7 +1,7 @@
 // LED-Matrix Breite
 #define MAT_WIDTH 8
 // Anzahl an Bits pro LED
-#define MAT_PREC_BITS 4
+#define MAT_PREC_BITS 5
 // Virtuelle Matrix Breite
 #define MAT_VWIDTH MAT_WIDTH << MAT_PREC_BITS
 
