@@ -1,13 +1,11 @@
-# TODO
+# Arduino Matrix
 
-- random direction with joy stick
+This program will display a dot on an 8x8 LED-matrix.
 
-# Planning
+The dot is controllable by a joystick.
 
-```
-a = [5, 3] | * 100
-b = [500, 300]
-len = 583
-w_len = 64
-c = b * w_len / len = [54, 32]
-```
+Clicking the joystick will randomize the dot's direction.
+
+The dot will bounce off walls.
+
+Moving the joystick will move the dot in the given direction.
