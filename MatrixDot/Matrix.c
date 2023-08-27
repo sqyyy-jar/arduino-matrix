@@ -1,5 +1,7 @@
 #include "Matrix.h"
 
+#include "types.h"
+
 Vec2 vec_convert(Vec2 *src) {
   return (Vec2){.x = src->x >> MAT_PREC_BITS, .y = src->y >> MAT_PREC_BITS};
 }
@@ -12,29 +14,46 @@ Vec2 vec_mul(Vec2 *src, int amount) {
   return (Vec2){.x = src->x * amount, .y = src->y * amount};
 }
 
+Vec2 vec_normalize(Vec2 *src) {
+  Vec2 result;
+  int x = src->x;
+  int y = src->y;
+  x <<= MAT_PREC_BITS;
+  y <<= MAT_PREC_BITS;
+  int len = sqrt(x * x + y * y);
+  result.x = x * DOT_SPEED / len;
+  result.y = y * DOT_SPEED / len;
+  return result;
+}
+
 void dot_move(Dot *dot) {
   Vec2 dest = vec_add(&dot->position, &dot->velocity);
-  for (int i = 0; i < 2; i++) {
-    dot_bounce(dot, &dest);
+  while (dot_bounce(dot, &dest)) {
   }
   dot->position = dest;
 }
 
-void dot_bounce(Dot *dot, Vec2 *dest) {
+bool dot_bounce(Dot *dot, Vec2 *dest) {
+  bool bounced = FALSE;
   if (dest->x < 0) {
+    bounced = TRUE;
     dest->x = -dest->x;
     dot->velocity.x = -dot->velocity.x;
   }
   if (dest->x >= MAT_VWIDTH) {
+    bounced = TRUE;
     dest->x = MAT_VWIDTH - (dest->x - MAT_VWIDTH);
     dot->velocity.x = -dot->velocity.x;
   }
   if (dest->y < 0) {
+    bounced = TRUE;
     dest->y = -dest->y;
     dot->velocity.y = -dot->velocity.y;
   }
   if (dest->y >= MAT_VWIDTH) {
+    bounced = TRUE;
     dest->y = MAT_VWIDTH - (dest->y - MAT_VWIDTH);
     dot->velocity.y = -dot->velocity.y;
   }
+  return bounced;
 }
