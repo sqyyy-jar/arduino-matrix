@@ -52,10 +52,10 @@ void loop() {
     dot.velocity = vec_normalize(&velocity);
   }
   dot_move(&dot);
-  Serial.print("x: ");
-  Serial.print(dot.velocity.x);
-  Serial.print("y: ");
-  Serial.println(dot.velocity.y);
+  // Serial.print("x: ");
+  // Serial.print(dot.velocity.x);
+  // Serial.print("y: ");
+  // Serial.println(dot.velocity.y);
   lc.clearDisplay(0);
   draw_dot();
   delay(50);

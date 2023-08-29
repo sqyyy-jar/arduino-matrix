@@ -14,13 +14,13 @@ Vec2 vec_mul(Vec2 *src, int amount) {
   return (Vec2){.x = src->x * amount, .y = src->y * amount};
 }
 
-Vec2 vec_normalize(Vec2 *src) {
+Vec2 vec_resize(Vec2 *src) {
   Vec2 result;
   int x = src->x;
   int y = src->y;
   double len = sqrt(x * x + y * y);
-  result.x = x * 10 / len;
-  result.y = y * 10 / len;
+  result.x = x * DOT_SPEED / len;
+  result.y = y * DOT_SPEED / len;
   return result;
 }
 

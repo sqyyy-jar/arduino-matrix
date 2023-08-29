@@ -32,8 +32,8 @@ Vec2 vec_add(Vec2 *left, Vec2 *right);
 // Vektor mit Integer multiplizieren
 Vec2 vec_mul(Vec2 *src, int amount);
 
-// Vektor normalisieren (length=DOT_SPEED)
-Vec2 vec_normalize(Vec2 *src);
+// Vektor an Geschwindigkeit anpassen (length=DOT_SPEED)
+Vec2 vec_resize(Vec2 *src);
 
 // Punkt wird bewegt
 void dot_move(Dot *dot);
