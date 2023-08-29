@@ -18,11 +18,9 @@ Vec2 vec_normalize(Vec2 *src) {
   Vec2 result;
   int x = src->x;
   int y = src->y;
-  x <<= MAT_PREC_BITS;
-  y <<= MAT_PREC_BITS;
-  int len = sqrt(x * x + y * y);
-  result.x = x * DOT_SPEED / len;
-  result.y = y * DOT_SPEED / len;
+  double len = sqrt(x * x + y * y);
+  result.x = x * 10 / len;
+  result.y = y * 10 / len;
   return result;
 }
 

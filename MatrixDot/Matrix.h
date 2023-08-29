@@ -3,11 +3,13 @@
 // LED-Matrix Breite
 #define MAT_WIDTH 8
 // Anzahl an Bits pro LED
-#define MAT_PREC_BITS 10
+#define MAT_PREC_BITS 5
+// Virtuelle Breite eines Punktes
+#define MAT_DOT_VWIDTH (1 << MAT_PREC_BITS)
 // Virtuelle Matrix Breite
-#define MAT_VWIDTH MAT_WIDTH << MAT_PREC_BITS
+#define MAT_VWIDTH (MAT_DOT_VWIDTH * MAT_WIDTH)
 // Geschwindigkeit des Punkts
-#define DOT_SPEED (1 << MAT_PREC_BITS) / 2
+#define DOT_SPEED (MAT_DOT_VWIDTH / 32)
 
 // 2D-Vektor
 typedef struct vec2_t {
