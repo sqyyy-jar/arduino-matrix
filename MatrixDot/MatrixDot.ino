@@ -49,7 +49,7 @@ void loop() {
     randomize_dir();
   } else if (xAxis < 300 || xAxis > 700 || yAxis < 300 || yAxis > 700) {
     Vec2 velocity = {.x = xAxis - 512, .y = yAxis - 512};
-    dot.velocity = vec_normalize(&velocity);
+    dot.velocity = vec_resize(&velocity);
   }
   dot_move(&dot);
   // Serial.print("x: ");
@@ -68,5 +68,5 @@ void draw_dot() {
 
 void randomize_dir() {
   Vec2 velocity = {.x = random(-512, 511), .y = random(-512, 511)};
-  dot.velocity = vec_normalize(&velocity);
+  dot.velocity = vec_resize(&velocity);
 }
