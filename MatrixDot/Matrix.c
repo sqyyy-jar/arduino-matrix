@@ -16,17 +16,17 @@ Vec2 vec_mul(Vec2 *src, int amount) {
 
 Vec2 vec_resize(Vec2 *src) {
   Vec2 result;
-  int x = src->x;
-  int y = src->y;
+  long x = src->x;
+  long y = src->y;
   double len = sqrt(x * x + y * y);
-  result.x = x * DOT_SPEED / len;
-  result.y = y * DOT_SPEED / len;
+  result.x = (x * DOT_SPEED) / len;
+  result.y = (y * DOT_SPEED) / len;
   return result;
 }
 
 void dot_move(Dot *dot) {
   Vec2 dest = vec_add(&dot->position, &dot->velocity);
-  while (dot_bounce(dot, &dest)) {
+  for (int i = 0; i < 10 && dot_bounce(dot, &dest); i++) {
   }
   dot->position = dest;
 }

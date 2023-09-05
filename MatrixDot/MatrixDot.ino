@@ -2,6 +2,8 @@
 #include "Matrix.c"
 #include "types.h"
 
+#define RANDOMIZE FALSE
+
 const int joystick_x = A1;
 const int joystick_y = A0;
 const int joystick_btn = 0;
@@ -27,8 +29,8 @@ void setup() {
 }
 
 void loop() {
-  int xAxis = analogRead(joystick_x);
-  int yAxis = analogRead(joystick_y);
+  int xAxis = analogRead(joystick_x) - 512;
+  int yAxis = analogRead(joystick_y) - 512;
   bool is_pressed = !digitalRead(joystick_btn);
   bool was_released = FALSE;
   if (was_pressed && !is_pressed) {
@@ -37,18 +39,10 @@ void loop() {
     was_released = FALSE;
   }
   was_pressed = is_pressed;
-  // Serial.print("x: ");
-  // Serial.print(xAxis);
-  // Serial.print(", y: ");
-  // Serial.print(yAxis);
-  // Serial.print(", is: ");
-  // Serial.print(is_pressed);
-  // Serial.print(", was: ");
-  // Serial.println(was_released);
   if (was_released) {
     randomize_dir();
-  } else if (xAxis < 300 || xAxis > 700 || yAxis < 300 || yAxis > 700) {
-    Vec2 velocity = {.x = xAxis - 512, .y = yAxis - 512};
+  } else if (xAxis < -100 || xAxis > 100 || yAxis < -100 || yAxis > 100) {
+    Vec2 velocity = {.x = xAxis, .y = yAxis};
     dot.velocity = vec_resize(&velocity);
   }
   dot_move(&dot);
@@ -67,6 +61,33 @@ void draw_dot() {
 }
 
 void randomize_dir() {
-  Vec2 velocity = {.x = random(-512, 511), .y = random(-512, 511)};
-  dot.velocity = vec_resize(&velocity);
+  if (RANDOMIZE) {
+    Vec2 velocity = {.x = random(-512, 511), .y = random(-512, 511)};
+    dot.velocity = vec_resize(&velocity);
+  } else {
+    Vec2 velocity = {.x = 0, .y = 0};
+    dot.velocity = vec_resize(&velocity);
+    Vec2 pos = {.x = MAT_VWIDTH / 2, .y = MAT_VWIDTH / 2};
+    dot.position = pos;
+  }
 }
+
+// Vec2 vec_resize(Vec2 *src) {
+//   Vec2 result;
+//   long x = src->x;
+//   long y = src->y;
+//   Serial.print("Resize ");
+//   Serial.print(x);
+//   Serial.print(", ");
+//   Serial.print(y);
+//   Serial.print(", ");
+//   double len = sqrt(x * x + y * y);
+//   Serial.print(len);
+//   Serial.print(", ");
+//   result.x = (x * DOT_SPEED) / len;
+//   result.y = (y * DOT_SPEED) / len;
+//   Serial.print(result.x);
+//   Serial.print(", ");
+//   Serial.println(result.y);
+//   return result;
+// }

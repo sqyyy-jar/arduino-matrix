@@ -9,7 +9,7 @@
 // Virtuelle Matrix Breite
 #define MAT_VWIDTH (MAT_DOT_VWIDTH * MAT_WIDTH)
 // Geschwindigkeit des Punkts
-#define DOT_SPEED (MAT_DOT_VWIDTH / 32)
+#define DOT_SPEED (MAT_DOT_VWIDTH / 2)
 
 // 2D-Vektor
 typedef struct vec2_t {
