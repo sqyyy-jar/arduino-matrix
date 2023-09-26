@@ -46,10 +46,6 @@ void loop() {
     dot.velocity = vec_resize(&velocity);
   }
   dot_move(&dot);
-  // Serial.print("x: ");
-  // Serial.print(dot.velocity.x);
-  // Serial.print("y: ");
-  // Serial.println(dot.velocity.y);
   lc.clearDisplay(0);
   draw_dot();
   delay(50);
@@ -65,29 +61,8 @@ void randomize_dir() {
     Vec2 velocity = {.x = random(-512, 511), .y = random(-512, 511)};
     dot.velocity = vec_resize(&velocity);
   } else {
-    Vec2 velocity = {.x = 0, .y = 0};
-    dot.velocity = vec_resize(&velocity);
+    dot.velocity = {.x = 0, .y = 0};
     Vec2 pos = {.x = MAT_VWIDTH / 2, .y = MAT_VWIDTH / 2};
     dot.position = pos;
   }
 }
-
-// Vec2 vec_resize(Vec2 *src) {
-//   Vec2 result;
-//   long x = src->x;
-//   long y = src->y;
-//   Serial.print("Resize ");
-//   Serial.print(x);
-//   Serial.print(", ");
-//   Serial.print(y);
-//   Serial.print(", ");
-//   double len = sqrt(x * x + y * y);
-//   Serial.print(len);
-//   Serial.print(", ");
-//   result.x = (x * DOT_SPEED) / len;
-//   result.y = (y * DOT_SPEED) / len;
-//   Serial.print(result.x);
-//   Serial.print(", ");
-//   Serial.println(result.y);
-//   return result;
-// }
